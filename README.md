@@ -1,15 +1,14 @@
-# 🧵 Reader–Writer Synchronization Problem
+# Reader–Writer Synchronization Problem
 
-## 📌 Overview
+## Overview
 
 The **Reader–Writer Problem** is a classic **synchronization problem** in computer science that focuses on managing concurrent access to a shared resource.  
 This project demonstrates how multiple threads (readers and writers) can safely interact with shared data without causing race conditions or data inconsistency.
 
 The implementation ensures **thread safety** while maintaining **maximum concurrency**.
 
----
 
-## ❓ Problem Statement
+## Problem Statement
 
 In a multi-threaded environment, several threads may attempt to access the same shared resource simultaneously.
 
@@ -22,9 +21,8 @@ The challenge is to:
 - Allow multiple readers to read at the same time
 - Allow only one writer to access the resource at a time
 
----
 
-## 👥 Types of Threads
+## Types of Threads
 
 ### Readers
 - Read-only access to the shared resource
@@ -36,22 +34,20 @@ The challenge is to:
 - Only one writer can access the resource at a time
 - Must wait if any reader or writer is active
 
----
 
 ## 🔒 Synchronization Rules
 
 The following rules are strictly enforced:
 
-- ✅ Multiple readers can read simultaneously  
-- ✅ Only one writer can write at a time  
-- ❌ No reader can read while a writer is writing  
-- ❌ No writer can write while readers are reading  
+- Multiple readers can read simultaneously  
+- Only one writer can write at a time  
+- No reader can read while a writer is writing  
+- No writer can write while readers are reading  
 
 These rules guarantee **data consistency** and **safe concurrent execution**.
 
----
 
-## ⚙️ How the Solution Works (High-Level)
+## How the Solution Works (High-Level)
 
 1. Synchronization mechanisms such as **mutexes, semaphores, or locks** are used.
 2. A counter tracks the number of active readers.
@@ -62,9 +58,8 @@ These rules guarantee **data consistency** and **safe concurrent execution**.
 
 This approach balances **performance** and **correctness** by allowing parallel reads while protecting writes.
 
----
 
-## 🧠 Why This Matters
+## Why This Matters
 
 The Reader–Writer problem is widely used in real-world systems such as:
 
@@ -80,9 +75,8 @@ Understanding this problem demonstrates strong knowledge of:
 - Thread synchronization
 - Operating system fundamentals
 
----
 
-## 🚀 Skills Demonstrated
+## Skills Demonstrated
 
 - Multithreading and concurrency control
 - Synchronization primitives (mutex/semaphore/lock)
@@ -90,13 +84,10 @@ Understanding this problem demonstrates strong knowledge of:
 - Thread-safe programming
 - System-level problem solving
 
----
 
-## 🧪 Example Scenario
+## Example Scenario
 
 - 5 reader threads access a shared resource → allowed
 - 1 writer thread requests access → waits
 - All readers finish → writer enters and updates the resource
 - Writer exits → readers can resume
-
----
