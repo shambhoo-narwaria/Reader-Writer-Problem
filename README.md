@@ -1,93 +1,66 @@
-# Reader–Writer Synchronization Problem
+# Readers-Writers Problem - Java Implementation
 
 ## Overview
-
-The **Reader–Writer Problem** is a classic **synchronization problem** in computer science that focuses on managing concurrent access to a shared resource.  
-This project demonstrates how multiple threads (readers and writers) can safely interact with shared data without causing race conditions or data inconsistency.
-
-The implementation ensures **thread safety** while maintaining **maximum concurrency**.
-
+The Readers-Writers problem is a classical synchronization problem that deals with managing concurrent access to a shared resource by multiple reader and writer threads.
 
 ## Problem Statement
+- **Readers**: Only read the shared data and can access it simultaneously
+- **Writers**: Modify the shared data and require exclusive access
+- **Constraints**:
+  - Multiple readers can read simultaneously
+  - Only one writer can write at a time
+  - No reader can read while a writer is writing
 
-In a multi-threaded environment, several threads may attempt to access the same shared resource simultaneously.
+## Implementations Included
 
-- **Readers** only read the data
-- **Writers** both read and modify the data
-
-The challenge is to:
-- Prevent writers from modifying data while readers are reading
-- Prevent readers from reading while a writer is writing
-- Allow multiple readers to read at the same time
-- Allow only one writer to access the resource at a time
-
-
-## Types of Threads
-
-### Readers
-- Read-only access to the shared resource
+### 1. **Reader-Preference Solution** (`ReaderPreferenceSolution.java`)
+- Prioritizes readers over writers
 - Multiple readers can access the resource simultaneously
-- Must wait if a writer is writing
+- **Drawback**: Writers may starve if readers keep arriving
 
-### Writers
-- Read and write access to the shared resource
-- Only one writer can access the resource at a time
-- Must wait if any reader or writer is active
+### 2. **Writer-Preference Solution** (`WriterPreferenceSolution.java`)
+- Prioritizes writers over readers
+- Writers get preference when both readers and writers are waiting
+- **Drawback**: Readers may starve if writers keep arriving
 
+### 3. **Fair/Starve-Free Solution** (`FairSolution.java`)
+- Uses a FIFO queue to ensure fairness
+- No thread starvation occurs
+- Threads are served in the order they arrive
 
-## 🔒 Synchronization Rules
+## Project Structure
 
-The following rules are strictly enforced:
+```
+Reader-Writer-Problem/
+├── src/              # Java source files (.java)
+├── bin/              # Compiled class files (.class)
+└── README.md         # Project documentation
+```
 
-- Multiple readers can read simultaneously  
-- Only one writer can write at a time  
-- No reader can read while a writer is writing  
-- No writer can write while readers are reading  
+## How to Run
 
-These rules guarantee **data consistency** and **safe concurrent execution**.
+### Compile all files:
+```bash
+javac -d bin src/*.java
+```
 
+### Run each solution:
+```bash
+# Reader-Preference Solution
+java -cp bin ReaderPreferenceSolution
 
-## How the Solution Works (High-Level)
+# Writer-Preference Solution
+java -cp bin WriterPreferenceSolution
 
-1. Synchronization mechanisms such as **mutexes, semaphores, or locks** are used.
-2. A counter tracks the number of active readers.
-3. Writers are blocked until:
-   - No readers are active
-   - No other writer is writing
-4. Readers are blocked only when a writer is active.
+# Fair Solution
+java -cp bin FairSolution
 
-This approach balances **performance** and **correctness** by allowing parallel reads while protecting writes.
+# Java Built-In Solution
+java -cp bin JavaBuiltInSolution
+```
 
-
-## Why This Matters
-
-The Reader–Writer problem is widely used in real-world systems such as:
-
-- Databases
-- Operating systems
-- File systems
-- Web servers
-- Caching layers
-
-Understanding this problem demonstrates strong knowledge of:
-- Concurrency
-- Critical sections
-- Thread synchronization
-- Operating system fundamentals
-
-
-## Skills Demonstrated
-
-- Multithreading and concurrency control
-- Synchronization primitives (mutex/semaphore/lock)
-- Race condition prevention
-- Thread-safe programming
-- System-level problem solving
-
-
-## Example Scenario
-
-- 5 reader threads access a shared resource → allowed
-- 1 writer thread requests access → waits
-- All readers finish → writer enters and updates the resource
-- Writer exits → readers can resume
+## Key Concepts Demonstrated
+- **Semaphores/Locks**: Mutual exclusion and synchronization
+- **ReadWriteLock**: Java's built-in support for reader-writer synchronization
+- **Thread Safety**: Proper synchronization to avoid race conditions
+- **Starvation**: Understanding and preventing thread starvation
